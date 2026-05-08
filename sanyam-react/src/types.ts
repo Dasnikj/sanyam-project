@@ -123,8 +123,9 @@ export interface ImageSubSlide extends SubSlideBase {
 
 export interface VideoSubSlide extends SubSlideBase {
   type: 'video';
-  videoId: string;
-  platform: 'youtube' | 'youtube-short';
+  videoId?: string;
+  videoSrc?: string;
+  platform: 'youtube' | 'youtube-short' | 'local';
   caption?: string;
   subcaption?: string;
 }

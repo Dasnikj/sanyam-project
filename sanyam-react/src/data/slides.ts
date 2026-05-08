@@ -147,7 +147,9 @@ export const stoveToSolarData: StoveToSolarData = {
    ═══════════════════════════════════════════ */
 
 export const sections: SectionData[] = [
-  /* ─── S1: Direction, Not Deletion ─── */
+  /* ═══════════════════════════════════════════════════════
+     S1: Introduction — "Sanyam: Direction, Not Deletion"
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's1',
     sectionNumber: 1,
@@ -170,100 +172,97 @@ export const sections: SectionData[] = [
           { wrong: 'Sanyam = Religious restriction', right: 'Sanyam = Disciplined freedom' },
           { wrong: 'Sanyam = Passive patience', right: 'Sanyam = Active self-mastery' },
         ],
-      },
-      {
-        type: 'story',
-        id: 's1c',
-        storyTitle: 'The River & The Dam',
-        narrative:
-          'A blocked river floods and destroys. A channeled river powers a city. Sanyam is the channel — not the wall. The river doesn\'t lose energy when channeled. It gains PURPOSE.',
-        source: 'Vachanamrut Gadhada II-54',
-        highlight: 'Channel the energy. Don\'t dam it.',
+        speakerNote: 'River & Dam (Vachanamrut Gadhada II-54): A blocked river floods and destroys. A channeled river powers a city. Sanyam is the channel — not the wall.',
       },
       {
         type: 'interaction',
-        id: 's1d',
+        id: 's1c',
         interactionType: 'steering-wheel',
         onscreenText: 'Sanyam is not a \'No.\' It\'s a bigger \'Yes.\'',
         contextImage: '/assets/suppress-vs-redirect.png',
         contextImageAlt: 'Left: crash and sparks (suppress). Right: golden road, calm destination (redirect).',
-      },
-      {
-        type: 'takeaway',
-        id: 's1e',
-        punchline: '"Sanyam doesn\'t brake your life. It steers it."',
-        transition: 'Steering wheel ready. But to redirect, you need a MAP. Bina map, speed is just danger.',
+        speakerNote: 'Invite volunteer to click both cards. SUPPRESS first for the laugh. Then RE-ORIENT. Punchline is integrated in resolved state.',
       },
     ],
     speakerNotes: {
       title: 'S1 · Sanyam: Direction, Not Deletion',
       open: 'Open with big energy. Ask: \'Haath uthao — kitno ko lagta hai Sanyam matlab restrictions?\' Let hands go up. Pause. Then flip.',
       prasang: 'River & Dam (Vachanamrut Gadhada II-54): A blocked river floods. A channeled river powers a city.',
-      clickDirection: 'Invite volunteer to click both cards. SUPPRESS first for the laugh. Then RE-ORIENT.',
-      transition: '\'Steering wheel ready. But to redirect, you need a MAP.\'',
+      clickDirection: 'Misconception flip cards first, then steering-wheel interaction with suppress-vs-redirect image.',
+      transition: '\'Steering wheel ready. But your mind is already under siege — let\'s see the numbers.\'',
     },
   },
 
-  /* ─── S2: The Map is Already Written ─── */
+  /* ═══════════════════════════════════════════════════════
+     S2: "The Silent Crisis" — Mental Health, Stress, Anxiety
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's2',
     sectionNumber: 2,
-    principleTag: 'Agna & Maryada · Boundaries',
-    title: 'The Map is Already Written',
+    principleTag: 'Mano-Nigrah · Mind Control',
+    title: 'The Silent Crisis',
     subSlides: [
       {
         type: 'stat',
         id: 's2a',
+        value: '70,000',
+        label: 'thoughts per day — 80% are negative',
+        context: 'Your brain\'s default mode is a negativity factory. Without Sanyam it runs on autopilot toward anxiety, regret, and rumination.',
+        source: 'National Science Foundation / Cognitive Psychology',
+      },
+      {
+        type: 'stat',
+        id: 's2b',
         value: '35,000',
         label: 'decisions the average adult makes per day',
-        context: 'Each Sanyam decision burns mental fuel — unless it\'s already been made for you.',
+        context: 'Each decision burns mental fuel. Decision fatigue is real — unless the framework is already decided for you.',
         source: 'Cornell University Research',
       },
       {
         type: 'concept',
-        id: 's2b',
-        conceptTitle: 'Maryada = Highway Lane Markings',
-        points: [
-          { label: 'You don\'t go SLOWER in a lane', description: 'You go FASTER', variant: 'positive' },
-          { label: 'Because you don\'t think about the edge', description: 'The boundary frees you', variant: 'positive' },
-          { label: 'The Shikshapatri is your lane', description: 'On the highway of life', variant: 'positive' },
-        ],
-      },
-      {
-        type: 'image',
-        id: 's2b2',
-        imageSrc: '/assets/regret-vs-wisdom-road.png',
-        caption: 'Two Roads. One Choice.',
-        subcaption: 'Without Maryada: regret, guilt, distractions. With Maryada: awareness, discipline, freedom — and a destination.',
-      },
-      {
-        type: 'interaction',
         id: 's2c',
-        interactionType: 'maryada-cards',
-        onscreenText: 'No map? You\'re not traveling. You\'re lost.',
+        conceptTitle: 'Dopamine Deficit State',
+        points: [
+          { label: 'Pleasure ↑', description: 'Instant scroll, junk food, late-night reels', variant: 'negative' },
+          { label: 'Pain ↑↑', description: 'Brain compensates — anxiety, emptiness, craving MORE', variant: 'negative' },
+          { label: 'Balance', description: 'Bhajan, deep work, seva — slow dopamine = lasting satisfaction', variant: 'positive' },
+        ],
+        speakerNote: 'Dr. Anna Lembke (Dopamine Nation): pleasure and pain are a see-saw. Every cheap thrill creates an equal and opposite crash.',
+      },
+      {
+        type: 'comparison',
+        id: 's2d',
+        leftTitle: 'Willpower = Battery',
+        leftItems: ['Depletes with use', 'Crashes at night', 'Limited charges', 'Self-powered only'],
+        leftVariant: 'danger',
+        rightTitle: 'Bhajan = Solar',
+        rightItems: ['Recharges with use', 'Refills every morning', 'Unlimited capacity', 'Guru-powered'],
+        rightVariant: 'success',
       },
       {
         type: 'takeaway',
-        id: 's2d',
-        punchline: '"When the Shikshapatri says No — the debate is over before it starts."',
-        transition: 'Map is clear. But someone is stealing your GPS signal. Five thieves — one for every sense.',
+        id: 's2e',
+        punchline: '"Your brain\'s default is autopilot. Sanyam is the manual override."',
+        transition: 'The mind is under siege. But the biggest attacker isn\'t inside your head — it\'s in your pocket.',
       },
     ],
     speakerNotes: {
-      title: 'S2 · The Map is Already Written',
-      open: 'Decision fatigue is real. 35,000 decisions/day. Each burns mental fuel — unless already made.',
-      prasang: 'Maryada = highway lane markings. You go FASTER in a lane because you don\'t think about the edge.',
-      clickDirection: 'Click OPEN THE SHIKSHAPATRI together. Watch fog clear.',
-      transition: '\'Map is clear. But someone is stealing your GPS signal. Five thieves — one for every sense.\'',
+      title: 'S2 · The Silent Crisis',
+      open: '70,000 thoughts. 80% negative. 35,000 decisions. Your brain is a factory running on fumes.',
+      prasang: 'Dopamine Nation (Lembke): pleasure-pain see-saw. Every cheap thrill = equal crash. Bhajan is slow, sustainable dopamine.',
+      clickDirection: 'Let stats land with silence. Comparison card: \'This is why willpower alone always fails.\'',
+      transition: '\'The biggest attacker isn\'t in your head — it\'s in your pocket.\'',
     },
   },
 
-  /* ─── S3: Audit Your Sensory Diet ─── */
+  /* ═══════════════════════════════════════════════════════
+     S3: "The Wild Animal" — Social Media & Phone
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's3',
     sectionNumber: 3,
     principleTag: 'Kusang-tyag · Avoiding Toxic Intake',
-    title: 'Audit Your Sensory Diet',
+    title: 'The Wild Animal',
     subSlides: [
       {
         type: 'quote',
@@ -274,66 +273,66 @@ export const sections: SectionData[] = [
       },
       {
         type: 'image',
-        id: 's3a2',
+        id: 's3b',
         imageSrc: '/assets/youth-distractions.png',
-        caption: 'Running from Yourself',
-        subcaption: 'Notifications, reels, junk food, anger — every distraction competes for your energy, your focus, your future.',
+        caption: 'Lemon & Spoon: Focus and Control',
+        subcaption: 'Life is a race where distractions grab at you from every side. Sanyam is the steady hand that keeps the spoon balanced.',
       },
       {
         type: 'image',
-        id: 's3a3',
+        id: 's3c',
         imageSrc: '/assets/phone-monster.png',
         caption: 'The Algorithm Has Hands',
         subcaption: 'Social media is engineered to grip you. Lonely → Scroll → FOMO → More isolated → Scroll more. The cycle doesn\'t break on its own.',
       },
       {
         type: 'video',
-        id: 's3a4',
-        videoId: 'jgp0x9r5Q-0',
-        platform: 'youtube-short',
-        caption: 'Even Apple\'s CEO Says: Put the Phone Down',
-        subcaption: '"If I\'m looking at the device more than I\'m looking into someone\'s eyes, I\'m doing the wrong thing." — Tim Cook',
+        id: 's3d',
+        platform: 'local',
+        videoSrc: '/assets/kids_issue.mp4',
+        caption: 'Broken Homes: When Desire Meets Rejection',
+        subcaption: 'Uncontrolled desire and inability to handle rejection — this is what happens when Sanyam is missing.',
       },
       {
-        type: 'concept',
-        id: 's3b',
-        conceptTitle: 'Five-Fold Aahar: 5 Entry Points',
-        points: [
-          { label: 'Eyes', description: 'Doomscrolling reels vs Kirtan darshan', variant: 'negative' },
-          { label: 'Ears', description: 'Gossip & negativity vs Satsang katha', variant: 'negative' },
-          { label: 'Mouth', description: 'Junk food & addictions vs Satvik prasad', variant: 'negative' },
-          { label: 'Touch', description: 'Inappropriate contact vs Seva with bhav', variant: 'negative' },
-          { label: 'Mind', description: 'Overthinking & anxiety vs Swadhyay reflection', variant: 'negative' },
-        ],
+        type: 'video',
+        id: 's3e',
+        videoId: 'GtaxU6DZvLs',
+        platform: 'youtube',
+        caption: 'Work Twice as Hard as Others',
+        subcaption: 'Elon Musk on the discipline behind success. Discipline is not optional — it\'s the entry fee.',
       },
       {
         type: 'interaction',
-        id: 's3c',
+        id: 's3f',
         interactionType: 'five-fold-aahar',
         onscreenText: 'Eyes. Ears. Mouth. Touch. Mind. All five need fasting.',
+        contextImage: '/assets/hariprasad-swamiji-vision.png',
+        contextImageAlt: 'Hariprasad Swamiji — Success: You don\'t need eyes. You need vision.',
       },
       {
         type: 'takeaway',
-        id: 's3d',
+        id: 's3g',
         punchline: '"If you wouldn\'t eat from a trash can — don\'t scroll through one."',
-        transition: 'Five thieves identified. How do we guard the doors? A tortoise figured it out first.',
+        transition: 'Five thieves identified. How do we guard the doors? One sense at a time.',
       },
     ],
     speakerNotes: {
-      title: 'S3 · Audit Your Sensory Diet',
-      open: 'Netflix\'s CEO: biggest competitor is sleep. Algorithms hunt you. You\'re not scrolling — you\'re being consumed.',
-      prasang: 'Five-Fold Aahar: Mouth, Eyes, Ears, Touch, Mind. Each is an entry point. Junk through any one poisons the whole system.',
-      clickDirection: 'Ask: \'Haath uthao jinhe eyes wali problem zyada hai?\' Click each bubble with the room.',
-      transition: '\'Five thieves identified. One ancient defensive technique — a tortoise figured it out first.\'',
+      title: 'S3 · The Wild Animal',
+      open: 'Netflix CEO quote. Then show images. Let the visuals do the talking.',
+      prasang: 'kids_issue video: show how uncontrolled desire destroys homes. Manual play — let the room absorb.',
+      clickDirection: 'Five-fold aahar interaction with Hariprasad Swamiji image. Tap each sense bubble with the audience.',
+      transition: '\'Five thieves identified. Guard every gate — one sense at a time.\'',
     },
   },
 
-  /* ─── S4: Pull Back to Move Forward ─── */
+  /* ═══════════════════════════════════════════════════════
+     S4: "Guard Every Gate" — 5 Senses, Professional Life
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's4',
     sectionNumber: 4,
     principleTag: 'Jagrata · Constant Alertness',
-    title: 'Pull Back to Move Forward',
+    title: 'Guard Every Gate',
     subSlides: [
       {
         type: 'statement',
@@ -352,52 +351,104 @@ export const sections: SectionData[] = [
         highlight: 'Withdrawal is not escape. It\'s a tactical reset.',
       },
       {
+        type: 'quote',
+        id: 's4c',
+        quote: 'કેટલાક ને મન રમાડે છે, કેટલાક મન ને રમાડે છે.',
+        attribution: 'Swamini Vaat',
+        context: 'Some are played by their mind; some play the mind. Sanyam decides which side you\'re on.',
+      },
+      {
         type: 'image',
-        id: 's4b2',
+        id: 's4d',
         imageSrc: '/assets/phone-on-leash.png',
         caption: 'You Hold the Leash',
         subcaption: 'Sanyam isn\'t deleting your phone — it\'s taking back control. The phone walks with you. You don\'t walk for it.',
       },
       {
+        type: 'concept',
+        id: 's4e',
+        conceptTitle: 'The Gates Under Attack',
+        points: [
+          { label: 'POSH issues', description: 'One wrong look, one wrong word — career over', variant: 'negative' },
+          { label: 'Attention span', description: '8 seconds — less than a goldfish', variant: 'negative' },
+          { label: 'Anger & emotional outbursts', description: 'React first, regret forever', variant: 'negative' },
+          { label: 'Vaani issues', description: 'Words spoken in anger that can\'t be unheard', variant: 'negative' },
+          { label: 'Hardwork + Talent', description: 'Without Sanyam, talent leaks through every crack', variant: 'neutral' },
+        ],
+      },
+      {
+        type: 'video',
+        id: 's4f',
+        videoId: 'aT0efqZ8lws',
+        platform: 'youtube-short',
+        caption: 'Discipline: The Edge Nobody Sees',
+      },
+      {
         type: 'interaction',
-        id: 's4c',
+        id: 's4g',
         interactionType: 'tortoise-mode',
         onscreenText: 'Elite skill: Withdraw your senses at will.',
       },
       {
         type: 'takeaway',
-        id: 's4d',
+        id: 's4h',
         punchline: '"If you can\'t be alone with your thoughts — you\'re a prisoner of your distractions."',
-        transition: 'You\'ve pulled back. But why were we scrolling so desperately? What are we running from?',
+        transition: 'You\'ve seen the problem. Now let\'s see the proof — from people who mastered it in the real world.',
       },
     ],
     speakerNotes: {
-      title: 'S4 · Pull Back to Move Forward',
-      open: 'Ask: \'When did you last sit bored without your phone — even 2 minutes?\' Let the silence land.',
-      prasang: 'Tortoise analogy (Gadhada I-16): withdraws all limbs. Re-emerges on its own terms. That\'s Jagrata.',
-      clickDirection: 'Click WITHDRAW SENSES. Chips fade. Hold 3-4 seconds of REAL silence. \'That was Jagrata.\'',
-      transition: '\'You\'ve pulled back. But why were we scrolling so desperately? What are we running from?\'',
+      title: 'S4 · Guard Every Gate',
+      open: 'Ask: \'When did you last sit without your phone — even 2 minutes?\' Let the silence land.',
+      prasang: 'Tortoise (Gadhada I-16): withdraws all limbs. Swamini Vaat: who plays whom?',
+      clickDirection: 'Concept slide: walk through each gate. Then tortoise-mode interaction. Hold 3-4 sec of real silence.',
+      transition: '\'You\'ve seen the problem. Now the proof — from the real world.\'',
     },
   },
 
-  /* ─── S5: The Expensive Illusion ─── */
+  /* ═══════════════════════════════════════════════════════
+     S5: "Real-Life Sanyam" — Examples from the World
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's5',
     sectionNumber: 5,
     principleTag: 'Atmanishtha · Soul-Consciousness',
-    title: 'The Expensive Illusion',
+    title: 'Real-Life Sanyam',
     subSlides: [
       {
         type: 'story',
         id: 's5a',
-        storyTitle: '₹15,000 Sneakers',
+        storyTitle: 'Warren Buffett: 500 Pages a Day',
         narrative:
-          '₹21,000 ka rent. ₹15,000 ke joote. ₹40,000 family income. Ghar se pehle joote? This isn\'t financial planning — this is insecurity on sale. We\'ve all done some version. Bought something for validation. Posted for approval. Curated a life for strangers.',
-        highlight: 'The root is always the same: insecurity.',
+          'Warren Buffett reads 500 pages every single day. When asked the secret to success, he pointed at a stack of books and said: "Read 500 pages every day. That\'s how knowledge works — it builds up, like compound interest." No shortcuts. No reels. Just deep, patient Sanyam.',
+        highlight: '"The more you learn, the more you earn."',
+      },
+      {
+        type: 'video',
+        id: 's5b',
+        videoId: 'GtaxU6DZvLs',
+        platform: 'youtube',
+        caption: 'Elon Musk: Work Twice as Hard',
+        subcaption: '"Nobody ever changed the world on 40 hours a week." Discipline, focus, relentless work ethic.',
+      },
+      {
+        type: 'story',
+        id: 's5c',
+        storyTitle: 'Donald Trump: Zero Substances',
+        narrative:
+          'No alcohol. No drugs. No cigarettes. Whatever you think of his politics, the man is 80+ and still running at full speed. His older brother Fred died from alcoholism. Trump chose total abstinence — a form of Sanyam that most people dismiss. Discipline despite controversy.',
+        highlight: 'Relentless perseverance. No substances. Full control.',
+      },
+      {
+        type: 'story',
+        id: 's5d',
+        storyTitle: '₹15,000 Jordans vs ₹21,000 Rent',
+        narrative:
+          'A youth, influenced by social media, buys ₹15,000 Jordans. His rent is ₹21,000. Family income: ₹40,000. He wasn\'t even earning. Ghar se pehle joote? This isn\'t financial planning — this is insecurity on sale.',
+        highlight: 'Social media made him buy a life he couldn\'t afford.',
       },
       {
         type: 'comparison',
-        id: 's5b',
+        id: 's5e',
         leftTitle: 'Borrowed Confidence',
         leftItems: ['Costs money', 'Needs an audience', 'Expires with trends', 'Algorithm-dependent'],
         leftVariant: 'danger',
@@ -407,32 +458,34 @@ export const sections: SectionData[] = [
       },
       {
         type: 'interaction',
-        id: 's5c',
+        id: 's5f',
         interactionType: 'anti-flex',
         onscreenText: 'Secure people don\'t flex. Only the lost need to show off.',
       },
       {
         type: 'takeaway',
-        id: 's5d',
+        id: 's5g',
         punchline: '"Don\'t crash your real life to maintain a virtual illusion."',
-        transition: 'Internally secure now. What happens when someone tries to knock us off balance — with words?',
+        transition: 'Okay, so restraint works. But how does it actually function inside you? Let\'s open the hood.',
       },
     ],
     speakerNotes: {
-      title: 'S5 · The Expensive Illusion',
-      open: 'Tell the 15k shoes story warmly. We\'ve all done some version. The root is always insecurity.',
-      prasang: 'Atmanishtha: When you know you are the Atma — no algorithm can rank your worth.',
-      clickDirection: 'Click UNFILTER. Atma panel rises. \'This is what\'s real. That left side? Borrowed confidence.\'',
-      transition: '\'Internally secure. What happens when someone tries to knock us off balance — with words?\'',
+      title: 'S5 · Real-Life Sanyam',
+      open: 'Buffett: 500 pages/day. Musk: work twice as hard. Trump: zero substances at 80+. All forms of Sanyam.',
+      prasang: '15k shoes story — social media made him buy a life he couldn\'t afford. We\'ve all done some version.',
+      clickDirection: 'Anti-flex interaction: UNFILTER. Atma panel rises. \'This is what\'s real.\'',
+      transition: '\'Restraint works. But how does it actually function? Let\'s open the hood.\'',
     },
   },
 
-  /* ─── S6: Before the Bullet Leaves the Gun ─── */
+  /* ═══════════════════════════════════════════════════════
+     S6: "Restrain in Detail" — Mechanics of Restraint
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's6',
     sectionNumber: 6,
     principleTag: 'Vani Sanyam · Restraint in Speech',
-    title: 'Before the Bullet Leaves the Gun',
+    title: 'Restrain in Detail',
     subSlides: [
       {
         type: 'stat',
@@ -442,15 +495,19 @@ export const sections: SectionData[] = [
         context: 'Words spoken in the first 3 seconds of anger cause the most lasting damage. That window is where Vani Sanyam lives.',
       },
       {
-        type: 'image',
-        id: 's6a2',
-        imageSrc: '/assets/unkind-truth.png',
-        caption: 'Unkind Truth vs Kind Lie',
-        subcaption: 'Unkind truths build functional systems over time. Kind lies feel good — and destroy everything slowly.',
+        type: 'concept',
+        id: 's6b',
+        conceptTitle: 'Spring Analogy: Suppression Rebounds',
+        points: [
+          { label: 'Force a spring down', description: 'It stores energy — and snaps back HARDER', variant: 'negative' },
+          { label: 'Suppression ≠ Sanyam', description: 'Pushing feelings down doesn\'t delete them', variant: 'negative' },
+          { label: 'Redirect the energy', description: 'Channel it into bhajan, seva, deep work', variant: 'positive' },
+          { label: 'Willpower is limited', description: 'Smart rules + redirection > raw suppression', variant: 'positive' },
+        ],
       },
       {
         type: 'story',
-        id: 's6b',
+        id: 's6c',
         storyTitle: 'The Cowshed Insult',
         narrative:
           'Someone insulted Bhagat directly — in front of Maharaj. The room tensed. Everyone waited for the explosion. But Bhagat stayed centered. Not passive. Not a pushover. He chose the Guru over his ego.',
@@ -458,43 +515,61 @@ export const sections: SectionData[] = [
       },
       {
         type: 'image',
-        id: 's6b2',
+        id: 's6d',
         imageSrc: '/assets/sanyam-car-uturn.png',
         caption: 'Anger vs Sanyam',
         subcaption: 'Left: out of control, sparks, damage. Right: calm, glowing, directed. One second is the entire difference.',
       },
       {
         type: 'interaction',
-        id: 's6c',
+        id: 's6e',
         interactionType: 'one-second-uturn',
         onscreenText: 'Your character is what you didn\'t say in anger.',
       },
       {
         type: 'takeaway',
-        id: 's6d',
+        id: 's6f',
         punchline: '"Speech is silver. Sanyam is gold."',
-        transition: 'You\'ve mastered your mouth. Now what about your work — your Dharma?',
+        transition: 'Now we know the mechanics. But who shows us this in real life — selflessly, every single day?',
       },
     ],
     speakerNotes: {
-      title: 'S6 · Before the Bullet Leaves the Gun',
-      open: 'Ask: \'When did you last regret something you said in the first 3 seconds of anger?\'',
+      title: 'S6 · Restrain in Detail',
+      open: '3 seconds. That\'s the window. Spring analogy: suppression rebounds. Redirect instead.',
       prasang: 'Cowshed Insult: Bhagat chose the Guru over his ego. One second of pause was the whole difference.',
       clickDirection: 'Click EK SECOND PAUSE. Watch countdown ring fill. \'That\'s Vani Sanyam in action.\'',
-      transition: '\'Mastered your mouth. Now what about your work — your Dharma?\'',
+      transition: '\'Who shows us this selflessly, every day?\'',
     },
   },
 
-  /* ─── S7: Nobody Sees the Kitchen ─── */
+  /* ═══════════════════════════════════════════════════════
+     S7: "Selfless Love and Duty"
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's7',
     sectionNumber: 7,
     principleTag: 'Dharma · Duty & Disciplined Work',
-    title: 'Nobody Sees the Kitchen',
+    title: 'Selfless Love and Duty',
     subSlides: [
       {
         type: 'story',
         id: 's7a',
+        storyTitle: 'A Mother\'s Invisible Seva',
+        narrative:
+          'Your mother wakes up before you. Cooks without being asked. Cleans without applause. No validation, no audience, no likes — pure duty. She doesn\'t post about it. She doesn\'t need your approval. That is the highest form of Sanyam: selfless love without expectation.',
+        highlight: 'No filter needed. No audience required.',
+      },
+      {
+        type: 'story',
+        id: 's7b',
+        storyTitle: 'The Japan Boy — Suhradam Youth Shibir',
+        narrative:
+          'At the Suhradam Youth Shibir, a boy from Japan volunteered to clean the entire hall alone — before anyone asked. No instruction. No reward. When asked why, he said: "In my country, we leave a place better than we found it." Good deeds reflect culture and country.',
+        highlight: 'Culture is what you do when nobody is watching.',
+      },
+      {
+        type: 'story',
+        id: 's7c',
         storyTitle: 'MBAs Washing Dishes',
         narrative:
           'Suhradam Shibir. MBAs, engineers, doctors — all mopping floors and washing bartan with full bhav. No LinkedIn post. No package attached. Pure sevabhav killing the intellectual ego.',
@@ -502,102 +577,84 @@ export const sections: SectionData[] = [
       },
       {
         type: 'image',
-        id: 's7a2',
+        id: 's7d',
         imageSrc: '/assets/hariprasad-swamiji-vision.png',
         caption: 'Success: You Don\'t Need Eyes. You Need Vision.',
         subcaption: 'Pujya Hariprasad Swamiji on the inner discipline that creates extraordinary impact.',
       },
       {
         type: 'quote',
-        id: 's7b',
-        quote: 'Focused work without your phone is the rarest professional skill in the 21st century.',
-        attribution: 'Cal Newport, Deep Work',
-        context: '2 hours of undistracted deep work is worth more than any degree on a résumé. That concentration IS Sanyam.',
+        id: 's7e',
+        quote: 'કાઈ પણ હોય, હું નવરોજ છું આવી જવાનું.',
+        attribution: 'Pujya Hariprasad Swamiji Maharaj',
+        context: '"Whatever happens, I am free — I will come." Unwavering commitment. Zero excuses. Total Sanyam.',
       },
       {
-        type: 'video',
-        id: 's7b2',
-        videoId: 'GtaxU6DZvLs',
-        platform: 'youtube',
-        caption: 'Work Twice as Hard as Others',
-        subcaption: 'Elon Musk on the discipline behind success. "Nobody ever changed the world on 40 hours a week." The kitchen is invisible — the grind is real.',
+        type: 'story',
+        id: 's7f',
+        storyTitle: 'Yogiji Maharaj: The Midnight Wait',
+        narrative:
+          'Yogiji Maharaj waited all night for a devotee who had strayed. When the devotee returned, broken and ashamed, Maharaj didn\'t lecture. He smiled. \'I was waiting for you.\' The Guru never gives up on you.',
+        highlight: 'You hit Reset — He was already waiting.',
       },
       {
-        type: 'interaction',
-        id: 's7c',
-        interactionType: 'invisible-foundation',
-        onscreenText: 'Talent is wet clay. Sanyam is the fire.',
+        type: 'image',
+        id: 's7g',
+        imageSrc: '/assets/prabodh-swamiji-writing.png',
+        caption: 'Tireless at 75',
+        subcaption: 'Prabodh Swamiji Maharaj — travelling, writing, serving tirelessly at the age of 75. This is Sanyam in action.',
+      },
+      {
+        type: 'image',
+        id: 's7h',
+        imageSrc: '/assets/hariprasad-prabodh-swamiji.png',
+        caption: 'The Gunatit Purusho',
+        subcaption: 'Living proof that selfless love and relentless duty can coexist in one life.',
       },
       {
         type: 'takeaway',
-        id: 's7d',
+        id: 's7i',
         punchline: '"Talent gets you noticed. Sanyam gets you promoted."',
-        transition: 'Even the best get knocked down. What\'s the spiritual reset protocol when we fall?',
+        transition: 'Inspired by the greats. Now — what do we actually do tomorrow morning?',
       },
     ],
     speakerNotes: {
-      title: 'S7 · Nobody Sees the Kitchen',
-      open: 'Suhradam Shibir story: MBAs washing dishes. No LinkedIn post. Pure sevabhav.',
-      prasang: 'Cal Newport: \'Deep work without phone is the rarest professional skill.\' 2 hours > any degree.',
-      clickDirection: 'Three clicks with the room. Step 1→2→3. \'POT IS READY. The kitchen made that possible.\'',
-      transition: '\'Even the best get knocked down. What\'s the spiritual reset protocol?\'',
+      title: 'S7 · Selfless Love and Duty',
+      open: 'Start with mother\'s selfless work. Then Japan boy. Then MBAs washing dishes. Build the arc of selfless duty.',
+      prasang: 'Hariprasad Swamiji: "Kai pan hoi, Hu navroj chu aavi javanu." Yogiji Maharaj midnight wait. Prabodh Swamiji at 75.',
+      clickDirection: 'Let images breathe. Hariprasad Swamiji quote should land with silence.',
+      transition: '\'Inspired. Now what do we actually do tomorrow morning?\'',
     },
   },
 
-  /* ─── S8: Recalculating. Not Broken. ─── */
+  /* ═══════════════════════════════════════════════════════
+     S8: "Daily Hacks" — Practical Reset Protocol
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's8',
     sectionNumber: 8,
     principleTag: 'Bhajan & Swadhyay · Daily Practice',
-    title: 'Recalculating. Not Broken.',
+    title: 'Daily Hacks',
     subSlides: [
       {
-        type: 'image',
-        id: 's8a0',
-        imageSrc: '/assets/prabodh-swamiji-writing.png',
-        caption: 'The Practice Nobody Posts',
-        subcaption: 'Swadhyay in silence. No audience. No likes. The invisible work is what builds the unbreakable self.',
-      },
-      {
-        type: 'comparison',
+        type: 'statement',
         id: 's8a',
-        leftTitle: 'Willpower = Battery',
-        leftItems: ['Depletes with use', 'Crashes at night', 'Limited charges', 'Self-powered only'],
-        leftVariant: 'danger',
-        rightTitle: 'Bhajan = Solar',
-        rightItems: ['Recharges with use', 'Refills every morning', 'Unlimited capacity', 'Guru-powered'],
-        rightVariant: 'success',
-      },
-      {
-        type: 'story',
-        id: 's8b',
-        storyTitle: 'The Midnight Wait',
-        narrative:
-          'Yogiji Maharaj waited all night for a devotee who had strayed. When the devotee returned, broken and ashamed, Maharaj didn\'t lecture. He smiled. \'I was waiting for you.\' The Guru never deletes the route.',
-        highlight: 'You hit Reset — He was already waiting.',
-      },
-      {
-        type: 'video',
-        id: 's8b2',
-        videoId: 'TFEzFI-igxA',
-        platform: 'youtube-short',
-        caption: 'The Drowning Rat Experiment',
-        subcaption: 'A rat swam 15 minutes before giving up. But when rescued once and put back — it swam for 60 HOURS. Hope didn\'t add a little. It multiplied everything. That\'s what the Guru\'s hand does.',
+        headline: 'Change will not happen in a day.',
+        subtext: 'But it starts with one.',
       },
       {
         type: 'concept',
-        id: 's8c',
-        conceptTitle: 'Oil on Hand — Not in Hand',
+        id: 's8b',
+        conceptTitle: 'The Sandwich Technique',
         points: [
-          { label: 'Oil ON the hand', description: 'You can wash it off', variant: 'positive' },
-          { label: 'Oil IN the hand', description: 'It seeps into everything', variant: 'negative' },
-          { label: 'A lapse is oil ON the hand', variant: 'positive' },
-          { label: 'Guilt that festers is oil IN the hand', variant: 'negative' },
+          { label: 'Bhajan (2 min)', description: 'Start your day with connection — before the phone', variant: 'positive' },
+          { label: 'Deep Work', description: 'Focused duty — phone on silent, one task, full presence', variant: 'positive' },
+          { label: 'Swadhyay (2 min)', description: 'End with reflection — what went right, what to reset', variant: 'positive' },
         ],
       },
       {
         type: 'image',
-        id: 's8c2',
+        id: 's8c',
         imageSrc: '/assets/how-change-created.png',
         caption: 'How Change is Created',
         subcaption: 'Idea → Thoughts → Feelings → Plan → Habits → Commitment → Lifestyle → Change. Sanyam lives at every ring.',
@@ -616,15 +673,17 @@ export const sections: SectionData[] = [
       },
     ],
     speakerNotes: {
-      title: 'S8 · Recalculating. Not Broken.',
-      open: 'Reassure: \'Willpower is a battery. Bhajan is solar — it recharges you.\'',
-      prasang: 'Yogiji Maharaj waited all night for a stray devotee. GPS never gives up. Neither does the Guru.',
+      title: 'S8 · Daily Hacks',
+      open: '\'Change will not happen in a day. But it starts with one.\' Introduce the Sandwich Technique.',
+      prasang: 'Bhajan bookends everything. 4 minutes total. Show the change-rings image.',
       clickDirection: 'Three clicks build the sandwich. \'4 minutes. Bhajan bookends everything.\'',
       transition: '\'You can\'t run this alone. That\'s not weakness — that\'s wisdom.\'',
     },
   },
 
-  /* ─── S9: Solo Hero is a Myth ─── */
+  /* ═══════════════════════════════════════════════════════
+     S9: "Solo Hero is a Myth" — 2+4 Rule and Sabha
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's9',
     sectionNumber: 9,
@@ -651,20 +710,20 @@ export const sections: SectionData[] = [
       },
       {
         type: 'image',
-        id: 's9b2',
+        id: 's9c',
         imageSrc: '/assets/people-in-life.png',
         caption: 'Choose Who You Let In',
         subcaption: 'Some push you to your limits. Some teach you. Some take more than they give. A few bring out the best in you.',
       },
       {
         type: 'interaction',
-        id: 's9c',
+        id: 's9d',
         interactionType: 'power-grid',
         onscreenText: 'Sanyam is a team sport. Plug into the grid.',
       },
       {
         type: 'takeaway',
-        id: 's9d',
+        id: 's9e',
         punchline: '"Sanyam is a team sport. Stop carrying the whole game alone."',
         transition: 'Grid connected. How do we move from trying... to just being? From pumping the stove... to facing the Sun?',
       },
@@ -678,7 +737,9 @@ export const sections: SectionData[] = [
     },
   },
 
-  /* ─── S10: Stop Pumping. Start Facing. ─── */
+  /* ═══════════════════════════════════════════════════════
+     S10: "Stop Pumping. Start Facing." — Guru-bhav
+     ═══════════════════════════════════════════════════════ */
   {
     id: 's10',
     sectionNumber: 10,
@@ -705,20 +766,20 @@ export const sections: SectionData[] = [
       },
       {
         type: 'image',
-        id: 's10b2',
+        id: 's10c',
         imageSrc: '/assets/hariprasad-prabodh-swamiji.png',
         caption: 'Face the Guru. Receive the Light.',
         subcaption: 'The solar panel has one job: face toward Him. That alignment — that turning — is Sanyam.',
       },
       {
         type: 'interaction',
-        id: 's10c',
+        id: 's10d',
         interactionType: 'stove-to-solar',
         onscreenText: 'Stop pumping the stove. Turn your face to the Sun.',
       },
       {
         type: 'takeaway',
-        id: 's10d',
+        id: 's10e',
         punchline: '"The Guru is the Sun. Sanyam is just... turning your face."',
         closingCta: 'Jai Swaminarayan',
       },

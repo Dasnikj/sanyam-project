@@ -1,6 +1,6 @@
 import { useRef, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { sections, TOTAL_SECTIONS } from '../data/slides';
+import { TOTAL_SECTIONS } from '../data/slides';
 import { useDeckState } from '../hooks/useDeckState';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import type { InteractionHandle } from '../types';
@@ -39,6 +39,12 @@ export default function SlideDeck() {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-surface font-body text-cream relative">
+      {/* Global background image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.12] pointer-events-none"
+        style={{ backgroundImage: 'url(/assets/generalBG.png)' }}
+      />
+      <div className="absolute inset-0 z-0 bg-surface/85 pointer-events-none" />
       {/* ── Top nav bar ── */}
       <nav className="fixed top-0 left-0 right-0 h-[52px] flex items-center justify-between px-7 bg-surface/90 backdrop-blur-md border-b border-line z-[100]">
         <div className="font-display text-[13px] font-bold text-saffron tracking-[0.05em] uppercase">
@@ -78,7 +84,7 @@ export default function SlideDeck() {
       </nav>
 
       {/* ── Slide stage ── */}
-      <div className="absolute top-[52px] left-0 right-0 bottom-0 overflow-hidden">
+      <div className="absolute top-[52px] left-0 right-0 bottom-0 overflow-hidden z-[1]">
         <AnimatePresence mode="wait">
           <motion.div
             key={subSlide.id}

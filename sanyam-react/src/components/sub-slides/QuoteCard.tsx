@@ -6,7 +6,7 @@ interface Props {
   context?: string;
 }
 
-const floatingDot = (delay: number, x: number, y: number, size: number) => ({
+const floatingDot = (delay: number, x: number, y: number, _size: number) => ({
   initial: { opacity: 0 },
   animate: {
     opacity: [0, 0.05, 0],
