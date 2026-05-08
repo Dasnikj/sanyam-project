@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanyam: The Steering Wheel of Freedom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090F;
+    --bg2: #11111C;
+    --saffron: #FF7B29;
+    --teal: #00D4B0;
+    --gold: #FFD166;
+    --danger: #FF3B5C;
+    --text: #F0EDE8;
+    --muted: #8A8699;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+  }
+
+  /* ── NAV ── */
+  #nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    background: rgba(9,9,15,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+  }
+  #nav-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--saffron);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  #dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .dot {
+    height: 6px;
+    background: var(--muted);
+    border-radius: 3px;
+    transition: all 0.35s ease;
+    cursor: pointer;
+    width: 6px;
+  }
+  .dot.active {
+    background: var(--saffron);
+    width: 22px;
+  }
+  #nav-right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  #notes-btn {
+    background: rgba(255,123,41,0.12);
+    border: 1px solid rgba(255,123,41,0.3);
+    color: var(--saffron);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+  }
+  #notes-btn:hover { background: rgba(255,123,41,0.22); }
+  #slide-counter { font-size: 12px; color: var(--muted); letter-spacing: 0.05em; }
+
+  /* ── SLIDES ── */
+  #stage {
+    position: absolute;
+    top: 52px; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 60px 28px;
+    gap: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .slide.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .slide-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 20px;
+    background: rgba(255,123,41,0.15);
+    border: 1px solid rgba(255,123,41,0.35);
+    color: var(--saffron);
+  }
+  .principle-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    padding: 4px 11px;
+    border-radius: 20px;
+    background: rgba(0,212,176,0.12);
+    border: 1px solid rgba(0,212,176,0.3);
+    color: var(--teal);
+  }
+
+  .slide-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4.2vw, 54px);
+    font-weight: 800;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  .slide-hook {
+    font-size: clamp(12px, 1.35vw, 16px);
+    color: var(--gold);
+    font-style: italic;
+    text-align: center;
+    max-width: 780px;
+    margin-bottom: 18px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .onscreen-text {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(16px, 2.1vw, 26px);
+    font-weight: 700;
+    text-align: center;
+    color: var(--teal);
+    margin-bottom: 22px;
+    max-width: 700px;
+    line-height: 1.3;
+  }
+
+  /* ── INTERACTION ZONES ── */
+  .ix-zone {
+    width: 100%;
+    max-width: 820px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 160px;
+    position: relative;
+  }
+
+  /* PUNCHLINE */
+  .punchline {
+    font-size: clamp(11px, 1.2vw, 14px);
+    color: var(--muted);
+    text-align: center;
+    font-style: italic;
+    margin-top: 14px;
+    transition: all 0.5s ease;
+    opacity: 0;
+    max-width: 660px;
+  }
+  .punchline.revealed {
+    opacity: 1;
+    color: var(--gold);
+  }
+
+  /* ── SPEAKER NOTES OVERLAY ── */
+  #notes-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(9,9,15,0.97);
+    backdrop-filter: blur(20px);
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+    padding: 60px 80px;
+    overflow-y: auto;
+  }
+  #notes-overlay.open { display: flex; }
+  #notes-overlay h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    color: var(--saffron);
+    margin-bottom: 6px;
+  }
+  #notes-overlay .notes-section {
+    margin-bottom: 22px;
+  }
+  #notes-overlay .notes-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  #notes-overlay .notes-body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 900px;
+  }
+  #notes-overlay .notes-body strong { color: var(--gold); font-weight: 600; }
+  #notes-close {
+    position: fixed;
+    top: 20px; right: 28px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 22px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  #notes-close:hover { background: rgba(255,255,255,0.14); }
+
+  /* ── NAV ARROWS ── */
+  .nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 22px;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    z-index: 50;
+  }
+  .nav-arrow:hover { background: rgba(255,255,255,0.09); color: var(--text); }
+  #arrow-prev { left: 14px; }
+  #arrow-next { right: 14px; }
+
+  /* ── SHARED BUTTON STYLE ── */
+  .ix-btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 13px 30px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+  }
+  .ix-btn-saffron {
+    background: var(--saffron);
+    color: #09090F;
+  }
+  .ix-btn-saffron:hover { background: #ff9247; transform: translateY(-1px); }
+  .ix-btn-teal {
+    background: var(--teal);
+    color: #09090F;
+  }
+  .ix-btn-teal:hover { background: #1fffe8; transform: translateY(-1px); }
+  .ix-btn-outline {
+    background: transparent;
+    border: 2px solid var(--saffron);
+    color: var(--saffron);
+  }
+  .ix-btn-outline:hover { background: rgba(255,123,41,0.12); }
+
+  /* ─────────── S1 INTERACTIONS ─────────── */
+  .s1-cards {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 640px;
+  }
+  .s1-card {
+    flex: 1;
+    border-radius: 14px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  .s1-card.suppress-card {
+    background: rgba(255,59,92,0.1);
+    border-color: rgba(255,59,92,0.3);
+  }
+  .s1-card.suppress-card:hover { border-color: var(--danger); transform: translateY(-2px); }
+  .s1-card.orient-card {
+    background: rgba(0,212,176,0.08);
+    border-color: rgba(0,212,176,0.25);
+  }
+  .s1-card.orient-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .s1-card-icon { font-size: 36px; margin-bottom: 10px; }
+  .s1-card-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .s1-card.suppress-card .s1-card-label { color: var(--danger); }
+  .s1-card.orient-card .s1-card-label { color: var(--teal); }
+  .s1-card-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .s1-result {
+    display: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    text-align: center;
+    animation: fadeUp 0.5s ease;
+  }
+  .s1-result.danger-result { color: var(--danger); }
+  .s1-result.success-result { color: var(--teal); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─────────── S2 INTERACTIONS ─────────── */
+  .s2-card-wrap {
+    width: 100%;
+    max-width: 540px;
+    position: relative;
+  }
+  .s2-card {
+    border-radius: 14px;
+    padding: 30px 28px;
+    text-align: center;
+    transition: all 0.6s ease;
+  }
+  .s2-card.foggy {
+    background: rgba(138,134,153,0.1);
+    border: 2px solid rgba(138,134,153,0.2);
+  }
+  .s2-card.clear {
+    background: rgba(0,212,176,0.1);
+    border: 2px solid rgba(0,212,176,0.35);
+  }
+  .s2-icon { font-size: 40px; margin-bottom: 12px; }
+  .s2-card-text {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .s2-card.foggy .s2-card-text { color: var(--muted); }
+  .s2-card.clear .s2-card-text { color: var(--text); }
+
+  /* ─────────── S3 INTERACTIONS ─────────── */
+  .s3-bubbles {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 700px;
+  }
+  .sense-bubble {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.04);
+    border: 2px solid var(--border);
+    gap: 6px;
+  }
+  .sense-bubble:hover { transform: scale(1.07); }
+  .sense-bubble.healthy {
+    background: rgba(0,212,176,0.15);
+    border-color: var(--teal);
+    box-shadow: 0 0 20px rgba(0,212,176,0.25);
+  }
+  .sense-bubble.toxic {
+    background: rgba(255,59,92,0.15);
+    border-color: var(--danger);
+    box-shadow: 0 0 20px rgba(255,59,92,0.2);
+  }
+  .sense-bubble .bubble-icon { font-size: 26px; }
+  .sense-bubble .bubble-label { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; }
+  .sense-bubble.healthy .bubble-label { color: var(--teal); }
+  .sense-bubble.toxic .bubble-label { color: var(--danger); }
+  .s3-counter {
+    margin-top: 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-align: center;
+    transition: color 0.3s;
+  }
+  .s3-counter.done { color: var(--teal); }
+
+  /* ─────────── S4 INTERACTIONS ─────────── */
+  .s4-chips-wrap {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+  }
+  .s4-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 24px;
+    min-height: 80px;
+    align-items: center;
+  }
+  .chip {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    transition: all 0.4s ease;
+  }
+  .chip.faded { opacity: 0; transform: scale(0.7); }
+  .s4-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--teal);
+    margin: 0 auto 18px;
+    display: none;
+    box-shadow: 0 0 20px var(--teal), 0 0 40px rgba(0,212,176,0.4);
+    animation: pulse 1.8s infinite;
+  }
+  .s4-dot.visible { display: block; }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--teal); }
+    50% { transform: scale(1.4); box-shadow: 0 0 40px var(--teal), 0 0 60px rgba(0,212,176,0.4); }
+  }
+  .s4-caption {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--teal);
+    opacity: 0;
+    transition: opacity 0.5s ease 0.6s;
+  }
+  .s4-caption.visible { opacity: 1; }
+
+  /* ─────────── S5 INTERACTIONS ─────────── */
+  .s5-panels {
+    display: flex;
+    gap: 18px;
+    width: 100%;
+    max-width: 680px;
+  }
+  .s5-panel {
+    flex: 1;
+    border-radius: 14px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .s5-panel.flex-side {
+    background: rgba(255,59,92,0.08);
+    border: 2px solid rgba(255,59,92,0.2);
+  }
+  .s5-panel.atma-side {
+    background: rgba(0,212,176,0.06);
+    border: 2px dashed rgba(0,212,176,0.15);
+    opacity: 0.25;
+    transition: all 0.6s ease;
+  }
+  .s5-panel.atma-side.revealed {
+    opacity: 1;
+    border: 2px solid rgba(0,212,176,0.4);
+    background: rgba(0,212,176,0.1);
+  }
+  .s5-panel-icon { font-size: 32px; margin-bottom: 10px; }
+  .s5-panel-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .s5-panel.flex-side .s5-panel-title { color: var(--danger); }
+  .s5-panel.atma-side .s5-panel-title { color: var(--teal); }
+  .s5-panel-items { font-size: 12px; color: var(--muted); line-height: 2; }
+  .s5-panel.atma-side.revealed .s5-panel-items { color: var(--text); }
+
+  /* ─────────── S6 INTERACTIONS ─────────── */
+  .s6-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 540px;
+    width: 100%;
+  }
+  .s6-msg {
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+    transition: all 0.5s ease;
+  }
+  .s6-msg.angry {
+    background: rgba(255,59,92,0.12);
+    border-left: 3px solid var(--danger);
+    color: #ffa0b0;
+  }
+  .s6-msg.calm {
+    background: rgba(0,212,176,0.1);
+    border-left: 3px solid var(--teal);
+    color: var(--text);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.5s ease;
+  }
+  .s6-msg.calm.visible { opacity: 1; transform: translateY(0); }
+  .s6-countdown-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+  }
+  .s6-ring {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background: rgba(255,123,41,0.08);
+    border: 2px solid rgba(255,123,41,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--saffron);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .s6-ring-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(var(--saffron) 0deg, transparent 0deg);
+    opacity: 0.2;
+    transition: background 0.05s;
+  }
+
+  /* ─────────── S7 INTERACTIONS ─────────── */
+  .s7-steps {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    max-width: 640px;
+    width: 100%;
+  }
+  .s7-step {
+    flex: 1;
+    border-radius: 14px;
+    padding: 24px 16px;
+    text-align: center;
+    border: 2px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    transition: all 0.4s ease;
+  }
+  .s7-step.active-step {
+    border-color: var(--saffron);
+    background: rgba(255,123,41,0.1);
+    box-shadow: 0 0 24px rgba(255,123,41,0.15);
+  }
+  .s7-step.done-step {
+    border-color: var(--teal);
+    background: rgba(0,212,176,0.08);
+  }
+  .s7-step-icon { font-size: 34px; margin-bottom: 10px; }
+  .s7-step-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .s7-step.active-step .s7-step-label { color: var(--saffron); }
+  .s7-step.done-step .s7-step-label { color: var(--teal); }
+  .s7-step:not(.active-step):not(.done-step) .s7-step-label { color: var(--muted); }
+  .s7-arrow { font-size: 22px; color: var(--muted); flex-shrink: 0; }
+
+  /* ─────────── S8 INTERACTIONS ─────────── */
+  .s8-track {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    max-width: 660px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .s8-block {
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+    min-width: 130px;
+  }
+  .s8-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .s8-block.bhajan {
+    background: rgba(0,212,176,0.12);
+    border: 2px solid rgba(0,212,176,0.35);
+    color: var(--teal);
+  }
+  .s8-block.work {
+    background: rgba(255,123,41,0.12);
+    border: 2px solid rgba(255,123,41,0.35);
+    color: var(--saffron);
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  .s8-block.swadhyay {
+    background: rgba(0,212,176,0.12);
+    border: 2px solid rgba(0,212,176,0.35);
+    color: var(--teal);
+  }
+  .s8-separator { font-size: 18px; color: var(--muted); opacity: 0; transition: opacity 0.3s ease; }
+  .s8-separator.visible { opacity: 1; }
+  .s8-complete-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--teal);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    text-align: center;
+  }
+  .s8-complete-text.visible { opacity: 1; }
+
+  /* ─────────── S9 INTERACTIONS ─────────── */
+  .s9-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 14px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+  }
+  .s9-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,123,41,0.12);
+    border: 2px solid rgba(255,123,41,0.4);
+    font-size: 22px;
+    gap: 2px;
+    z-index: 5;
+    transition: all 0.5s ease;
+  }
+  .s9-center-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    color: var(--saffron);
+    letter-spacing: 0.07em;
+  }
+  .s9-center.lit {
+    background: rgba(255,209,102,0.2);
+    border-color: var(--gold);
+    box-shadow: 0 0 30px rgba(255,209,102,0.4);
+  }
+  .s9-node {
+    border-radius: 12px;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    transition: all 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-height: 80px;
+    justify-content: center;
+  }
+  .s9-node:hover { border-color: rgba(0,212,176,0.3); transform: scale(1.04); }
+  .s9-node.lit {
+    background: rgba(0,212,176,0.12);
+    border-color: var(--teal);
+    box-shadow: 0 0 18px rgba(0,212,176,0.2);
+  }
+  .s9-node-icon { font-size: 24px; }
+  .s9-node-label { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; }
+  .s9-node.lit .s9-node-label { color: var(--teal); }
+  .s9-counter {
+    position: absolute;
+    bottom: -36px;
+    left: 50%; transform: translateX(-50%);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+  .s9-counter.done { color: var(--teal); }
+
+  /* ─────────── S10 INTERACTIONS ─────────── */
+  .s10-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 560px;
+    width: 100%;
+  }
+  .s10-panel-icon {
+    font-size: 64px;
+    transition: all 0.6s ease;
+    filter: grayscale(1) brightness(0.5);
+  }
+  .s10-panel-icon.lit {
+    filter: none;
+    drop-shadow: 0 0 20px var(--gold);
+    animation: solarGlow 2s ease-in-out infinite;
+  }
+  @keyframes solarGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(255,209,102,0.5); }
+    50% { text-shadow: 0 0 40px rgba(255,209,102,0.9), 0 0 70px rgba(255,123,41,0.5); }
+  }
+  .s10-bar-track {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+  .s10-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--saffron), var(--gold));
+    transition: width 1.8s ease;
+  }
+  .s10-cta {
+    background: rgba(0,212,176,0.1);
+    border: 2px solid rgba(0,212,176,0.4);
+    border-radius: 14px;
+    padding: 20px 24px;
+    text-align: center;
+    max-width: 480px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.6s ease 1.9s;
+  }
+  .s10-cta.visible { opacity: 1; transform: translateY(0); }
+  .s10-cta-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--teal);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .s10-cta-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div id="nav-title">Sanyam · The Steering Wheel of Freedom</div>
+  <div id="dots"></div>
+  <div id="nav-right">
+    <span id="slide-counter">1 / 10</span>
+    <button id="notes-btn" onclick="toggleNotes()">📋 Speaker Notes (N)</button>
+  </div>
+</nav>
+
+<!-- ARROWS -->
+<button class="nav-arrow" id="arrow-prev" onclick="prevSlide()">&#8592;</button>
+<button class="nav-arrow" id="arrow-next" onclick="nextSlide()">&#8594;</button>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 1 — Sanyam: Direction, Not Deletion
+     ══════════════════════════════════════════════════════ -->
+<div id="stage">
+<div class="slide active" id="slide-1">
+  <div class="slide-meta">
+    <span class="badge">Section 1 of 10</span>
+    <span class="principle-tag">Indriya Nigrah · Sense Mastery</span>
+  </div>
+  <div class="slide-title">Sanyam: Direction, Not Deletion</div>
+  <div class="slide-hook">"Yaar, Sanyam ka matlab monk banana nahi — steering wheel pakad, handbrake nahi."</div>
+  <div class="onscreen-text">Sanyam is not a 'No.' It's a bigger 'Yes.'</div>
+  <div class="ix-zone">
+    <div class="s1-cards" id="s1-cards">
+      <div class="s1-card suppress-card" onclick="s1Click('suppress')">
+        <div class="s1-card-icon">🛑</div>
+        <div class="s1-card-label">SUPPRESS</div>
+        <div class="s1-card-desc">Pull the handbrake.<br>Force everything to stop.</div>
+      </div>
+      <div class="s1-card orient-card" onclick="s1Click('orient')">
+        <div class="s1-card-icon">🌊</div>
+        <div class="s1-card-label">RE-ORIENT</div>
+        <div class="s1-card-desc">Dig the channel.<br>Redirect the river.</div>
+      </div>
+    </div>
+    <div class="s1-result danger-result" id="s1-danger">💥 Sparks. Smoke. Crash.</div>
+    <div class="s1-result success-result" id="s1-success">⚡ Energy → Power. River → Turbine.</div>
+  </div>
+  <div class="punchline" id="pl-1">"Sanyam doesn't brake your life. It steers it."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 2 — The Map is Already Written
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <div class="slide-meta">
+    <span class="badge">Section 2 of 10</span>
+    <span class="principle-tag">Agna & Maryada · Boundaries</span>
+  </div>
+  <div class="slide-title">The Map is Already Written</div>
+  <div class="slide-hook">"Mumbai se Surat, 2AM, fog mein, bina GPS ke. Woh hai zindagi without the Shikshapatri."</div>
+  <div class="onscreen-text">No map? You're not traveling. You're lost.</div>
+  <div class="ix-zone">
+    <div class="s2-card-wrap">
+      <div class="s2-card foggy" id="s2-card">
+        <div class="s2-icon" id="s2-icon">🌫️</div>
+        <div class="s2-card-text" id="s2-text">Gray area ahead. No visibility. Every decision costs mental energy. Kusang arrives — what do you do? Your brain burns calculating…</div>
+        <button class="ix-btn ix-btn-saffron" id="s2-btn" onclick="s2Reveal()">OPEN THE SHIKSHAPATRI →</button>
+      </div>
+    </div>
+  </div>
+  <div class="punchline" id="pl-2">"When the Shikshapatri says No — the debate is over before it starts."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 3 — Audit Your Sensory Diet
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-3">
+  <div class="slide-meta">
+    <span class="badge">Section 3 of 10</span>
+    <span class="principle-tag">Kusang-tyag · Avoiding Toxic Intake</span>
+  </div>
+  <div class="slide-title">Audit Your Sensory Diet</div>
+  <div class="slide-hook">"Aankhon se Instagram ka kachra khao, kaano se gossip ka zahar peeyo — fir kahoge 'dimaag kharaab hai.' Bhai, food poisoning hua hai!"</div>
+  <div class="onscreen-text">Eyes. Ears. Mouth. Touch. Mind. All five need fasting.</div>
+  <div class="ix-zone" style="flex-direction:column; gap:10px;">
+    <div class="s3-bubbles" id="s3-bubbles">
+      <div class="sense-bubble" id="sb-0" onclick="s3Click(0)">
+        <span class="bubble-icon">👁️</span>
+        <span class="bubble-label">EYES</span>
+      </div>
+      <div class="sense-bubble" id="sb-1" onclick="s3Click(1)">
+        <span class="bubble-icon">👂</span>
+        <span class="bubble-label">EARS</span>
+      </div>
+      <div class="sense-bubble" id="sb-2" onclick="s3Click(2)">
+        <span class="bubble-icon">🫦</span>
+        <span class="bubble-label">MOUTH</span>
+      </div>
+      <div class="sense-bubble" id="sb-3" onclick="s3Click(3)">
+        <span class="bubble-icon">✋</span>
+        <span class="bubble-label">TOUCH</span>
+      </div>
+      <div class="sense-bubble" id="sb-4" onclick="s3Click(4)">
+        <span class="bubble-icon">🧠</span>
+        <span class="bubble-label">MIND</span>
+      </div>
+    </div>
+    <div class="s3-counter" id="s3-counter">TAP EACH SENSE · AUDIT YOUR DIET · 0 / 5</div>
+  </div>
+  <div class="punchline" id="pl-3">"If you wouldn't eat from a trash can — don't scroll through one."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 4 — Pull Back to Move Forward
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <div class="slide-meta">
+    <span class="badge">Section 4 of 10</span>
+    <span class="principle-tag">Jagrata · Constant Alertness</span>
+  </div>
+  <div class="slide-title">Pull Back to Move Forward</div>
+  <div class="slide-hook">"Har notification pe naachoge toh thak jaoge. Kachhua sikhata hai — danger aayi, shell mein jao, fir duniya dekho."</div>
+  <div class="onscreen-text">Elite skill: Withdraw your senses at will.</div>
+  <div class="ix-zone" style="flex-direction:column; align-items:center; gap:16px;">
+    <div class="s4-chips-wrap">
+      <div class="s4-chips" id="s4-chips">
+        <span class="chip">🔔 Notification</span>
+        <span class="chip">📱 Reels</span>
+        <span class="chip">💬 WhatsApp</span>
+        <span class="chip">🔴 Story Views</span>
+        <span class="chip">⚡ Breaking News</span>
+        <span class="chip">📣 Mentions</span>
+        <span class="chip">🎵 Background Music</span>
+        <span class="chip">💭 Overthinking</span>
+      </div>
+      <div class="s4-dot" id="s4-dot"></div>
+      <div class="s4-caption" id="s4-caption">That was Jagrata.</div>
+    </div>
+    <button class="ix-btn ix-btn-outline" id="s4-btn" onclick="s4Withdraw()">🐢 WITHDRAW SENSES</button>
+  </div>
+  <div class="punchline" id="pl-4">"If you can't be alone with your thoughts — you're a prisoner of your distractions."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 5 — The Expensive Illusion
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-5">
+  <div class="slide-meta">
+    <span class="badge">Section 5 of 10</span>
+    <span class="principle-tag">Atmanishtha · Soul-Consciousness</span>
+  </div>
+  <div class="slide-title">The Expensive Illusion</div>
+  <div class="slide-hook">"21 hazaar ka rent, 15 hazaar ke joote. Ghar se pehle joote? Yeh financial planning nahi — yeh insecurity ka sale hai."</div>
+  <div class="onscreen-text">Secure people don't flex. Only the lost need to show off.</div>
+  <div class="ix-zone">
+    <div class="s5-panels">
+      <div class="s5-panel flex-side">
+        <div class="s5-panel-icon">📸</div>
+        <div class="s5-panel-title">The Highlight Reel</div>
+        <div class="s5-panel-items">
+          ₹15,000 sneakers<br>
+          Trip shot for Instagram<br>
+          500 likes · 0 peace<br>
+          Rent? Overdue.
+        </div>
+      </div>
+      <div class="s5-panel atma-side" id="s5-atma">
+        <div class="s5-panel-icon">💎</div>
+        <div class="s5-panel-title">Atma Reality</div>
+        <div class="s5-panel-items">
+          You are the Atma<br>
+          Guru ka bachcha<br>
+          No filter needed<br>
+          Algorithm can't rank this.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:14px;">
+    <button class="ix-btn ix-btn-saffron" id="s5-btn" onclick="s5Reveal()">UNFILTER →</button>
+  </div>
+  <div class="punchline" id="pl-5">"Don't crash your real life to maintain a virtual illusion."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 6 — Before the Bullet Leaves the Gun
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <div class="slide-meta">
+    <span class="badge">Section 6 of 10</span>
+    <span class="principle-tag">Vani Sanyam · Restraint in Speech</span>
+  </div>
+  <div class="slide-title">Before the Bullet Leaves the Gun</div>
+  <div class="slide-hook">"Kisi ne insult kiya. Dum maaro dum — ek second. Ek second mein tum hero ya villain. Sanyam wahi ek second hai."</div>
+  <div class="onscreen-text">Your character is what you didn't say in anger.</div>
+  <div class="ix-zone" style="flex-direction:column; gap:14px;">
+    <div class="s6-messages">
+      <div class="s6-msg angry" id="s6-angry">
+        💢 "Tumhe kuch nahi pata. Mere kaam mein haath mat daalo — tum sab ek jaisa sochte ho!"
+      </div>
+      <div style="display:flex; align-items:center; gap:14px; justify-content:center;">
+        <div class="s6-countdown-wrap">
+          <div class="s6-ring" id="s6-ring">
+            <div class="s6-ring-fill" id="s6-ring-fill"></div>
+            <span id="s6-ring-text">1s</span>
+          </div>
+        </div>
+        <button class="ix-btn ix-btn-saffron" id="s6-btn" onclick="s6Pause()">EK SECOND PAUSE ⏱️</button>
+      </div>
+      <div class="s6-msg calm" id="s6-calm">
+        ✅ "Aapki baat sun raha hoon. Shayad mere perspective mein kuch gap hai — baat karte hain?"
+      </div>
+    </div>
+  </div>
+  <div class="punchline" id="pl-6">"Speech is silver. Sanyam is gold."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 7 — Nobody Sees the Kitchen
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-7">
+  <div class="slide-meta">
+    <span class="badge">Section 7 of 10</span>
+    <span class="principle-tag">Dharma · Duty & Disciplined Work</span>
+  </div>
+  <div class="slide-title">Nobody Sees the Kitchen</div>
+  <div class="slide-hook">"Senior professionals Shibir mein bartan saaf karte hain. Koi package nahi, koi post nahi. Yeh hai professional Sanyam."</div>
+  <div class="onscreen-text">Talent is wet clay. Sanyam is the fire.</div>
+  <div class="ix-zone" style="flex-direction:column; gap:18px;">
+    <div class="s7-steps">
+      <div class="s7-step active-step" id="s7-step-0">
+        <div class="s7-step-icon">🪣</div>
+        <div class="s7-step-label">Wet Clay<br><small style="font-weight:400;color:var(--muted);font-size:10px;">Raw talent, unformed</small></div>
+      </div>
+      <div class="s7-arrow">→</div>
+      <div class="s7-step" id="s7-step-1">
+        <div class="s7-step-icon">🔥</div>
+        <div class="s7-step-label">Sanyam Fire<br><small style="font-weight:400;color:var(--muted);font-size:10px;">Invisible seva + deep work</small></div>
+      </div>
+      <div class="s7-arrow">→</div>
+      <div class="s7-step" id="s7-step-2">
+        <div class="s7-step-icon">🏺</div>
+        <div class="s7-step-label">Baked Pot<br><small style="font-weight:400;color:var(--muted);font-size:10px;">Can hold success under pressure</small></div>
+      </div>
+    </div>
+    <button class="ix-btn ix-btn-saffron" id="s7-btn" onclick="s7Next()">NEXT STEP →</button>
+  </div>
+  <div class="punchline" id="pl-7">"Talent gets you noticed. Sanyam gets you promoted."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 8 — Recalculating. Not Broken.
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-8">
+  <div class="slide-meta">
+    <span class="badge">Section 8 of 10</span>
+    <span class="principle-tag">Bhajan & Swadhyay · Daily Practice</span>
+  </div>
+  <div class="slide-title">Recalculating. Not Broken.</div>
+  <div class="slide-hook">"GPS ne bola 'recalculating' — usne route delete nahi kiya. Sanyam bhi aisa hi hai. Gir gaye? Reset dabao. Chal pado."</div>
+  <div class="onscreen-text">Sanyam is how fast you hit Reset — not how often you fall.</div>
+  <div class="ix-zone" style="flex-direction:column; gap:14px; align-items:center;">
+    <div class="s8-track" id="s8-track">
+      <div class="s8-block bhajan" id="s8-b0">🎵 Bhajan<br><small>2 min · morning</small></div>
+      <div class="s8-separator" id="s8-sep1">+</div>
+      <div class="s8-block work" id="s8-b1">📚 Deep Work<br><small>focused duty</small></div>
+      <div class="s8-separator" id="s8-sep2">+</div>
+      <div class="s8-block swadhyay" id="s8-b2">📖 Swadhyay<br><small>2 min · close</small></div>
+    </div>
+    <div class="s8-complete-text" id="s8-done">🌅 SANDWICH BUILT · RESET PROTOCOL READY ✓</div>
+    <button class="ix-btn ix-btn-saffron" id="s8-btn" onclick="s8Add()">ADD BHAJAN FIRST 🎵</button>
+  </div>
+  <div class="punchline" id="pl-8">"A lapse in Sanyam is a broken shoelace — not a broken leg."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 9 — Solo Hero is a Myth
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-9">
+  <div class="slide-meta">
+    <span class="badge">Section 9 of 10</span>
+    <span class="principle-tag">Satsang & Suhradbhav · Spiritual Fellowship</span>
+  </div>
+  <div class="slide-title">Solo Hero is a Myth</div>
+  <div class="slide-hook">"Akele hero banne ka nasha hai — par battery khud drain hoti hai. Sabha ke power grid mein plug karo, yaar."</div>
+  <div class="onscreen-text">Sanyam is a team sport. Plug into the grid.</div>
+  <div class="ix-zone" style="flex-direction:column; gap:40px; align-items:center;">
+    <div style="position:relative; display:inline-block;">
+      <div class="s9-grid" id="s9-grid">
+        <div class="s9-node" id="sn-0" onclick="s9Click(0)">
+          <span class="s9-node-icon">🧘</span>
+          <span class="s9-node-label">SANTO</span>
+        </div>
+        <div class="s9-node" id="sn-1" onclick="s9Click(1)">
+          <span class="s9-node-icon">🏛️</span>
+          <span class="s9-node-label">SABHA</span>
+        </div>
+        <div class="s9-node" id="sn-2" onclick="s9Click(2)">
+          <span class="s9-node-icon">🤝</span>
+          <span class="s9-node-label">SUHRAD</span>
+        </div>
+        <div class="s9-node" id="sn-3" onclick="s9Click(3)">
+          <span class="s9-node-icon">🎵</span>
+          <span class="s9-node-label">BHAJAN</span>
+        </div>
+        <div class="s9-node" id="sn-4" onclick="s9Click(4)">
+          <span class="s9-node-icon">📖</span>
+          <span class="s9-node-label">SWADHYAY</span>
+        </div>
+        <div class="s9-node" id="sn-5" onclick="s9Click(5)">
+          <span class="s9-node-icon">🙏</span>
+          <span class="s9-node-label">SEVA</span>
+        </div>
+      </div>
+      <div class="s9-center" id="s9-center">
+        <span>⚡</span>
+        <span class="s9-center-label">YOU</span>
+      </div>
+      <div class="s9-counter" id="s9-counter">TAP EACH NODE · 0 / 6</div>
+    </div>
+  </div>
+  <div class="punchline" id="pl-9">"Sanyam is a team sport. Stop carrying the whole game alone."</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 10 — Stop Pumping. Start Facing.
+     ══════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-10">
+  <div class="slide-meta">
+    <span class="badge">Section 10 of 10</span>
+    <span class="principle-tag">Guru-bhav · Devotion to the Teacher</span>
+  </div>
+  <div class="slide-title">Stop Pumping. Start Facing.</div>
+  <div class="slide-hook">"Purana stove — pump karo, dhuaan khaao, effort hi effort. Solar panel sirf ek kaam karta hai — Guru ki taraf muh karo. Energy khud aati hai."</div>
+  <div class="onscreen-text">Stop pumping the stove. Turn your face to the Sun.</div>
+  <div class="ix-zone">
+    <div class="s10-wrap">
+      <div class="s10-panel-icon" id="s10-icon">☀️</div>
+      <div class="s10-bar-track">
+        <div class="s10-bar-fill" id="s10-bar"></div>
+      </div>
+      <button class="ix-btn ix-btn-saffron" id="s10-btn" onclick="s10Face()">FACE THE SUN 🌅</button>
+      <div class="s10-cta" id="s10-cta">
+        <div class="s10-cta-title">21-Day Commitment</div>
+        <div class="s10-cta-body">Pick <strong>1 Aahar habit</strong> + <strong>1 Reset habit</strong>.<br>Write it down. Share with your Suhrad. Start tonight.</div>
+      </div>
+    </div>
+  </div>
+  <div class="punchline" id="pl-10">"The Guru is the Sun. Sanyam is just... turning your face."</div>
+</div>
+
+</div><!-- /#stage -->
+
+<!-- ══════════════════════════════════════════════════════
+     SPEAKER NOTES OVERLAY
+     ══════════════════════════════════════════════════════ -->
+<div id="notes-overlay">
+  <button id="notes-close" onclick="toggleNotes()">✕</button>
+
+  <div id="notes-content"></div>
+</div>
+
+<script>
+// ── STATE ──
+let current = 0;
+const TOTAL = 10;
+let s1Done = false, s2Done = false, s3Count = 0, s4Done = false,
+    s5Done = false, s6Done = false, s7Step = 0, s8Step = 0,
+    s9Count = 0, s10Done = false;
+
+// ── NOTES DATA ──
+const notesData = [
+  {
+    title: "S1 · Sanyam: Direction, Not Deletion",
+    open: "Open with big energy. Ask: 'Haath uthao — kitno ko lagta hai Sanyam matlab restrictions?' Let hands go up. Pause. Then flip the frame completely.",
+    prasang: "River & Dam (Vachanamrut Gadhada II-54): A blocked river floods and destroys. A channeled river powers a city. Sanyam is the channel — not the wall.",
+    click: "Invite a volunteer to come up and click both cards. Let the room see the SUPPRESS explosion first — get a laugh. Then click RE-ORIENT and let the teal energy card reveal.",
+    transition: "'Steering wheel ready. But to redirect, you need a MAP. Bina map, speed is just danger. Let's find the map.'"
+  },
+  {
+    title: "S2 · The Map is Already Written",
+    open: "Decision fatigue is real. Average adult makes 35,000 decisions/day. Each Sanyam decision burns mental fuel — unless it's already been made.",
+    prasang: "Maryada = highway lane markings. You don't go slower in a lane — you go FASTER because you don't have to think about the edge. The Shikshapatri is your lane on the highway of life.",
+    click: "Click the OPEN THE SHIKSHAPATRI button together. Watch the fog clear. Point to the card: '3 boundaries. Zero debates. Zero brain-burning.'",
+    transition: "'Map is clear. But someone is stealing your GPS signal. There are five thieves — one for every sense. Let's identify them.'"
+  },
+  {
+    title: "S3 · Audit Your Sensory Diet",
+    open: "Netflix's CEO once said his biggest competitor was human sleep. Social media algorithms are engineered to keep you scrolling — they are not neutral. You are being hunted.",
+    prasang: "Five-Fold Aahar: Mouth, Eyes, Ears, Touch, Mind. Each is an entry point. Junk through any one poisons the whole system — like food poisoning. You don't need to eat trash to get poisoned — just put it in any opening.",
+    click: "Ask: 'Haath uthao jinhe eyes wali problem zyada hai?' Then ears? Then mind? Warm, not shaming — we've all been there. Click each bubble together with the room.",
+    transition: "'Five thieves identified. How do we guard the five doors? One ancient defensive technique — and a tortoise figured it out first.'"
+  },
+  {
+    title: "S4 · Pull Back to Move Forward",
+    open: "Ask: 'When did you last sit bored without your phone — even for 2 minutes?' Let the uncomfortable silence land. That discomfort is the symptom.",
+    prasang: "Tortoise analogy (Vachanamrut Gadhada I-16): The tortoise doesn't run from danger — it withdraws. Full retreat into the shell. Then re-emerges on its own terms. This is Jagrata.",
+    click: "Click WITHDRAW SENSES. Chips fade. The dot appears. Hold 3-4 full seconds of REAL room silence. Do NOT fill it. Then point to the caption: 'That was Jagrata.' Let it breathe.",
+    transition: "'You've pulled back. But why were we scrolling so desperately in the first place? What are we running from?'"
+  },
+  {
+    title: "S5 · The Expensive Illusion",
+    open: "Tell the 15k shoes story warmly, not mockingly. We've all done some version — bought something for validation, posted for approval, curated for strangers. The root is always the same: insecurity.",
+    prasang: "Atmanishtha: When you know you are the Atma — child of Akshar-Purushottam — no algorithm can rank your worth. Guru ka bachcha doesn't need a filter.",
+    click: "Click UNFILTER. Let the Atma panel rise on the right. Point: 'This is what's real. That left side? Expensive. Temporary. Borrowed confidence.'",
+    transition: "'Internally secure now. What happens when someone tries to knock us off balance externally — with words?'"
+  },
+  {
+    title: "S6 · Before the Bullet Leaves the Gun",
+    open: "Ask: 'When did you last regret something you said in the first 3 seconds of being angry?' Almost everyone will relate. That 3-second bullet — you can't take it back.",
+    prasang: "Cowshed Insult prasang: Someone insulted Bhagat directly in front of Maharaj. Bhagat stayed centered — not passive, not a pushover. He chose the Guru over his ego. One second of pause was the whole difference.",
+    click: "Click EK SECOND PAUSE together. Watch the countdown ring fill. The angry message transforms. Point: 'That transformation? One point two seconds. That's Vani Sanyam in action.'",
+    transition: "'You've mastered your mouth. Now what about your work — your daily duty — your Dharma?'"
+  },
+  {
+    title: "S7 · Nobody Sees the Kitchen",
+    open: "Suhradam Shibir story: MBAs, engineers, doctors — all mopping floors and washing dishes with full bhav. No LinkedIn post. No package attached. Pure sevabhav killing the intellectual ego.",
+    prasang: "Cal Newport: 'Focused work without your phone is the rarest professional skill in the 21st century.' 2 hours of undistracted deep work is worth more than any degree on a résumé.",
+    click: "Three clicks together with the room. Step 1 → Step 2 → Step 3. At the third click, say: 'POT IS READY. Now it can hold water. Now it can hold success. The kitchen made that possible.'",
+    transition: "'Even the best get knocked down. What's the spiritual reset protocol when we fall?'"
+  },
+  {
+    title: "S8 · Recalculating. Not Broken.",
+    open: "Reassure the room: 'Willpower is a battery. It runs out. Bhajan is solar — it recharges you. Don't rely on what depletes. Rely on what renews.'",
+    prasang: "Yogiji Maharaj's midnight wait: Maharaj waited all night for a devotee who had strayed — the Guru never deleted the route. GPS never gives up. Neither does the Guru. You hit Reset — He was already waiting.",
+    click: "Three button clicks build the sandwich live. After the third, the track glows and the completion text appears. Say: '4 minutes. That's the sandwich. Bhajan bookends everything difficult in your day.'",
+    transition: "'You can't run this protocol alone. And knowing that — that's not weakness. That's wisdom. Let's talk about the grid.'"
+  },
+  {
+    title: "S9 · Solo Hero is a Myth",
+    open: "2+4 Rule: 2 Anchors (Santo + Suhrad — humans who will correct you) + 4 Habits (Sabha, Bhajan, Swadhyay, Seva). Ask: 'Can you name your 2 anchors right now? An actual name.'",
+    prasang: "Kerosene stove & pin: The stove needs constant pumping — if the pin is removed, it goes dark. The Sabha is your pin. Remove yourself from the grid, and the flame dies — slowly, then suddenly.",
+    click: "Ask audience members to name one person for each node as you click them. Make it personal. When all 6 light up and center turns gold — hold it. 'That's a fully lit grid. That's protective armor.'",
+    transition: "'Grid connected. How do we move from trying... to just being? From pumping the stove... to facing the Sun?'"
+  },
+  {
+    title: "S10 · Stop Pumping. Start Facing.",
+    open: "Two energy systems: Stove (willpower alone — exhausting, dependent on you, runs out) vs. Solar Panel (Guru-bhav — effortless alignment, energy flows IN, never depletes).",
+    prasang: "Yogiji Maharaj: The Guru is always the Sun — shining, constant, full. The solar panel only has one job: face toward Him. The alignment is Sanyam. Not straining. Just turning.",
+    click: "Click FACE THE SUN together. Watch the panel illuminate, bar fills, CTA appears. Then — hold 4 full seconds of room silence. End quietly: 'Guru suraj hai. Sanyam bas yeh hai — apna muh udhar karo.' Then: 'Jai Swaminarayan.'",
+    transition: "— Final Section. Close with conviction and silence. —"
+  }
+];
+
+function renderNotes(idx) {
+  const n = notesData[idx];
+  document.getElementById('notes-content').innerHTML = `
+    <h2>${n.title}</h2>
+    <div class="notes-section">
+      <div class="notes-label">🔓 OPEN</div>
+      <div class="notes-body">${n.open}</div>
+    </div>
+    <div class="notes-section">
+      <div class="notes-label">📖 PRASANG / CONCEPT</div>
+      <div class="notes-body">${n.prasang}</div>
+    </div>
+    <div class="notes-section">
+      <div class="notes-label">🖱️ CLICK DIRECTION</div>
+      <div class="notes-body">${n.click}</div>
+    </div>
+    <div class="notes-section">
+      <div class="notes-label">🔀 TRANSITION</div>
+      <div class="notes-body"><em>${n.transition}</em></div>
+    </div>
+  `;
+}
+
+// ── NAVIGATION ──
+function buildDots() {
+  const d = document.getElementById('dots');
+  d.innerHTML = '';
+  for (let i = 0; i < TOTAL; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === current ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    d.appendChild(dot);
+  }
+}
+
+function goTo(idx) {
+  document.getElementById(`slide-${current + 1}`).classList.remove('active');
+  current = idx;
+  document.getElementById(`slide-${current + 1}`).classList.add('active');
+  document.getElementById('slide-counter').textContent = `${current + 1} / ${TOTAL}`;
+  buildDots();
+  renderNotes(current);
+}
+
+function nextSlide() { if (current < TOTAL - 1) goTo(current + 1); }
+function prevSlide() { if (current > 0) goTo(current - 1); }
+
+function toggleNotes() {
+  const o = document.getElementById('notes-overlay');
+  o.classList.toggle('open');
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('notes-overlay').classList.contains('open')) {
+    if (e.key === 'Escape' || e.key === 'n' || e.key === 'N') toggleNotes();
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft') prevSlide();
+  if (e.key === 'n' || e.key === 'N') toggleNotes();
+});
+
+// ── S1 ──
+function s1Click(type) {
+  if (s1Done) return;
+  document.getElementById('s1-cards').style.display = 'none';
+  const s1Done2 = true;
+  if (type === 'suppress') {
+    document.getElementById('s1-danger').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('s1-danger').style.display = 'none';
+      document.getElementById('s1-cards').style.display = 'flex';
+    }, 1600);
+  } else {
+    document.getElementById('s1-success').style.display = 'block';
+    s1Done = true;
+    document.getElementById('pl-1').classList.add('revealed');
+  }
+}
+
+// ── S2 ──
+function s2Reveal() {
+  if (s2Done) return;
+  s2Done = true;
+  const card = document.getElementById('s2-card');
+  const icon = document.getElementById('s2-icon');
+  const text = document.getElementById('s2-text');
+  const btn = document.getElementById('s2-btn');
+  card.className = 's2-card clear';
+  icon.textContent = '🗺️';
+  text.textContent = '3 boundaries. Clear lane. Kusang arrives — already decided. Zero debates. Zero brain-burning. The lane is open.';
+  btn.textContent = '✓ MARYADA MODE: ON';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+  document.getElementById('pl-2').classList.add('revealed');
+}
+
+// ── S3 ──
+const s3States = ['', '', '', '', ''];
+const s3Healthy = ['Kirtan & scripture', 'Satsang katha', 'Satvik prasad', 'Seva with bhav', 'Swadhyay & reflection'];
+const s3Toxic = ['Doomscrolling reels', 'Gossip & negativity', 'Junk food, addictions', 'Inappropriate contact', 'Overthinking & anxiety'];
+
+function s3Click(i) {
+  const el = document.getElementById(`sb-${i}`);
+  if (s3States[i]) return;
+  const isHealthy = Math.random() > 0.5;
+  s3States[i] = isHealthy ? 'healthy' : 'toxic';
+  el.classList.add(s3States[i]);
+  el.querySelector('.bubble-label').textContent = isHealthy ? s3Healthy[i].split(' ')[0].toUpperCase() : '⚠️ AUDIT';
+  s3Count++;
+  const counter = document.getElementById('s3-counter');
+  counter.textContent = `AUDIT COMPLETE · ${s3Count} / 5 SENSES CHECKED`;
+  if (s3Count === 5) {
+    counter.textContent = '✓ ALL 5 SENSES AUDITED';
+    counter.classList.add('done');
+    document.getElementById('pl-3').classList.add('revealed');
+  }
+}
+
+// ── S4 ──
+function s4Withdraw() {
+  if (s4Done) return;
+  s4Done = true;
+  const chips = document.querySelectorAll('.chip');
+  const btn = document.getElementById('s4-btn');
+  btn.disabled = true;
+  btn.textContent = '🐢 WITHDRAWING...';
+  chips.forEach((c, i) => setTimeout(() => c.classList.add('faded'), i * 120));
+  setTimeout(() => {
+    document.getElementById('s4-dot').classList.add('visible');
+    document.getElementById('s4-caption').classList.add('visible');
+    btn.textContent = '🐢 SENSES WITHDRAWN ✓';
+    document.getElementById('pl-4').classList.add('revealed');
+  }, chips.length * 120 + 600);
+}
+
+// ── S5 ──
+function s5Reveal() {
+  if (s5Done) return;
+  s5Done = true;
+  document.getElementById('s5-atma').classList.add('revealed');
+  const btn = document.getElementById('s5-btn');
+  btn.textContent = '💎 ATMA > ALGORITHM';
+  btn.disabled = true;
+  document.getElementById('pl-5').classList.add('revealed');
+}
+
+// ── S6 ──
+let s6Running = false;
+function s6Pause() {
+  if (s6Running || s6Done) return;
+  s6Running = true;
+  const btn = document.getElementById('s6-btn');
+  const ring = document.getElementById('s6-ring');
+  const ringFill = document.getElementById('s6-ring-fill');
+  const ringText = document.getElementById('s6-ring-text');
+  btn.disabled = true;
+  const duration = 1200;
+  const start = performance.now();
+  function animate(now) {
+    const elapsed = now - start;
+    const pct = Math.min(elapsed / duration, 1);
+    const deg = Math.round(pct * 360);
+    ringFill.style.background = `conic-gradient(var(--saffron) ${deg}deg, transparent ${deg}deg)`;
+    ringText.textContent = pct < 1 ? '…' : '✓';
+    if (pct < 1) requestAnimationFrame(animate);
+    else {
+      ring.style.borderColor = 'var(--teal)';
+      ring.style.color = 'var(--teal)';
+      document.getElementById('s6-angry').style.opacity = '0.3';
+      document.getElementById('s6-calm').classList.add('visible');
+      btn.textContent = 'EGO CANCELLED ✓';
+      s6Done = true;
+      document.getElementById('pl-6').classList.add('revealed');
+    }
+  }
+  requestAnimationFrame(animate);
+}
+let s6Done = false;
+
+// ── S7 ──
+function s7Next() {
+  if (s7Step >= 2) return;
+  const prev = document.getElementById(`s7-step-${s7Step}`);
+  prev.classList.remove('active-step');
+  prev.classList.add('done-step');
+  s7Step++;
+  const next = document.getElementById(`s7-step-${s7Step}`);
+  next.classList.add('active-step');
+  if (s7Step === 2) {
+    document.getElementById('s7-btn').textContent = 'POT IS READY ✓';
+    document.getElementById('s7-btn').disabled = true;
+    document.getElementById('pl-7').classList.add('revealed');
+  }
+}
+
+// ── S8 ──
+const s8Labels = ['ADD BHAJAN FIRST 🎵', 'ADD WORK BLOCK 📚', 'ADD SWADHYAY 📖'];
+function s8Add() {
+  if (s8Step >= 3) return;
+  const blocks = ['s8-b0', 's8-b1', 's8-b2'];
+  const seps = ['s8-sep1', 's8-sep2'];
+  document.getElementById(blocks[s8Step]).classList.add('visible');
+  if (s8Step > 0) document.getElementById(seps[s8Step - 1]).classList.add('visible');
+  s8Step++;
+  const btn = document.getElementById('s8-btn');
+  if (s8Step < 3) {
+    btn.textContent = s8Labels[s8Step];
+  } else {
+    document.getElementById('s8-sep2').classList.add('visible');
+    btn.textContent = 'SANDWICH BUILT ✓';
+    btn.disabled = true;
+    document.getElementById('s8-done').classList.add('visible');
+    document.getElementById('pl-8').classList.add('revealed');
+  }
+}
+
+// ── S9 ──
+function s9Click(i) {
+  const el = document.getElementById(`sn-${i}`);
+  if (el.classList.contains('lit')) return;
+  el.classList.add('lit');
+  s9Count++;
+  const counter = document.getElementById('s9-counter');
+  counter.textContent = `${s9Count} / 6 NODES CONNECTED`;
+  if (s9Count === 6) {
+    counter.classList.add('done');
+    counter.textContent = '✓ GRID FULLY LIT · PROTECTION ACTIVE';
+    document.getElementById('s9-center').classList.add('lit');
+    document.getElementById('pl-9').classList.add('revealed');
+  }
+}
+
+// ── S10 ──
+function s10Face() {
+  if (s10Done) return;
+  s10Done = true;
+  const btn = document.getElementById('s10-btn');
+  btn.disabled = true;
+  btn.textContent = '☀️ ALIGNING...';
+  document.getElementById('s10-icon').classList.add('lit');
+  setTimeout(() => {
+    document.getElementById('s10-bar').style.width = '100%';
+  }, 100);
+  setTimeout(() => {
+    document.getElementById('s10-cta').classList.add('visible');
+    btn.textContent = '✓ FACING THE SUN';
+    document.getElementById('pl-10').classList.add('revealed');
+  }, 2100);
+}
+
+// ── INIT ──
+buildDots();
+renderNotes(0);
+</script>
+</body>
+</html>
