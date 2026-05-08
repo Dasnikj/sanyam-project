@@ -38,13 +38,19 @@ export default function SlideDeck() {
   const isFirstInSection = current.localIndex === 0;
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-surface font-body text-cream relative">
-      {/* Global background image */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.12] pointer-events-none"
-        style={{ backgroundImage: 'url(/assets/generalBG.png)' }}
-      />
-      <div className="absolute inset-0 z-0 bg-surface/85 pointer-events-none" />
+    <div className="h-screen w-screen overflow-hidden font-body text-cream relative">
+      {/* Animated background — slow wave drift */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute bg-cover bg-center bg-no-repeat animate-bg-drift"
+          style={{
+            backgroundImage: 'url(/assets/generalBG.png)',
+            inset: '-5%',
+            width: '110%',
+            height: '110%',
+          }}
+        />
+      </div>
       {/* ── Top nav bar ── */}
       <nav className="fixed top-0 left-0 right-0 h-[52px] flex items-center justify-between px-7 bg-surface/90 backdrop-blur-md border-b border-line z-[100]">
         <div className="font-display text-[13px] font-bold text-saffron tracking-[0.05em] uppercase">

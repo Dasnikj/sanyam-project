@@ -47,6 +47,8 @@ export interface StatementSubSlide extends SubSlideBase {
   headline: string;
   subtext?: string;
   audiencePrompt?: string;
+  imageSrc?: string;
+  imageAlt?: string;
 }
 
 export interface StatSubSlide extends SubSlideBase {
@@ -78,10 +80,18 @@ export interface ConceptPoint {
   variant: 'positive' | 'negative' | 'neutral';
 }
 
+export interface PrasangBlock {
+  title: string;
+  narrative: string;
+  source?: string;
+  highlight?: string;
+}
+
 export interface ConceptSubSlide extends SubSlideBase {
   type: 'concept';
   conceptTitle: string;
   points: ConceptPoint[];
+  prasangs?: PrasangBlock[];
 }
 
 export interface MisconceptionSubSlide extends SubSlideBase {
@@ -128,6 +138,8 @@ export interface VideoSubSlide extends SubSlideBase {
   platform: 'youtube' | 'youtube-short' | 'local';
   caption?: string;
   subcaption?: string;
+  contextImage?: string;
+  contextImageAlt?: string;
 }
 
 export type SubSlide =
