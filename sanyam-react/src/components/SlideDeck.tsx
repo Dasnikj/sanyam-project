@@ -41,7 +41,7 @@ export default function SlideDeck() {
   const isFirstInSection = current.localIndex === 0;
 
   return (
-    <div className="h-screen w-screen overflow-hidden font-body text-cream relative">
+    <div className="h-dvh w-dvw overflow-hidden font-body text-cream relative">
       {/* Animated background — slow wave drift */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div
@@ -76,6 +76,9 @@ export default function SlideDeck() {
 
         {/* Right controls */}
         <div className="flex gap-2 md:gap-3.5 items-center text-xs text-muted shrink-0">
+          <span className="hidden sm:inline text-[9px] font-semibold tracking-[0.1em] uppercase px-2 py-0.5 rounded-full bg-jade/10 border border-jade/30 text-jade whitespace-nowrap">
+            Presented · May 2025
+          </span>
           <span className="tracking-[0.05em] font-display font-bold text-[11px] md:text-xs">
             S{section.sectionNumber}
             <span className="text-muted/50 font-normal mx-1">·</span>
