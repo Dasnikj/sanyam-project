@@ -123,7 +123,7 @@ const ConceptDiagram = ({ conceptTitle, points, prasangs }: Props) => {
       </motion.div>
 
       <div
-        className="grid gap-3 w-full"
+        className="concept-grid grid gap-2 md:gap-3 w-full"
         style={{
           maxWidth: cols === 3 ? '920px' : '740px',
           gridTemplateColumns: `repeat(${cols}, 1fr)`,

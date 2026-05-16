@@ -49,8 +49,8 @@ const FiveFoldAaharAudit = forwardRef<InteractionHandle, Props>(
     }));
 
     return (
-      <div className="flex flex-col items-center gap-2.5">
-        <div className="flex gap-3.5 flex-wrap justify-center max-w-[700px]">
+      <div className="flex flex-col items-center gap-2 md:gap-2.5">
+        <div className="flex gap-2.5 md:gap-3.5 flex-wrap justify-center max-w-[700px]">
           {data.senses.map((sense, i) => {
             const st = states[i];
             return (
@@ -59,8 +59,8 @@ const FiveFoldAaharAudit = forwardRef<InteractionHandle, Props>(
                 onClick={() => clickSense(i)}
                 whileHover={{ scale: 1.07 }}
                 whileTap={{ scale: 0.95 }}
-                className={`w-[110px] h-[110px] rounded-full flex flex-col items-center justify-center gap-1.5
-                  cursor-pointer transition-all duration-300 border-2 ${
+                className={`w-[80px] h-[80px] sm:w-[95px] sm:h-[95px] lg:w-[110px] lg:h-[110px] rounded-full flex flex-col items-center justify-center gap-1 lg:gap-1.5
+                  cursor-pointer transition-all duration-300 border-2 touch-manipulation ${
                     st === 'healthy'
                       ? 'bg-jade/15 border-jade shadow-[0_0_20px_rgba(0,212,176,0.25)]'
                       : st === 'toxic'
@@ -68,9 +68,9 @@ const FiveFoldAaharAudit = forwardRef<InteractionHandle, Props>(
                         : 'bg-white/[0.04] border-line'
                   }`}
               >
-                <span className="text-[26px]">{senseIcons[sense.icon]}</span>
+                <span className="text-[20px] sm:text-[22px] lg:text-[26px]">{senseIcons[sense.icon]}</span>
                 <span
-                  className={`text-[10px] font-semibold tracking-[0.05em] ${
+                  className={`text-[9px] sm:text-[10px] font-semibold tracking-[0.05em] ${
                     st === 'healthy'
                       ? 'text-jade'
                       : st === 'toxic'

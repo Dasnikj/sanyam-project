@@ -45,14 +45,14 @@ const SteeringWheelInteraction = forwardRef<InteractionHandle, Props>(
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="flex gap-5 w-full max-w-[640px]"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-5 w-full max-w-[640px]"
           >
             {data.cards.map((card) => (
               <button
                 key={card.key}
                 onClick={() => handleClick(card.key)}
-                className={`flex-1 rounded-[14px] p-7 text-center cursor-pointer transition-all duration-300
-                  border-2 ${
+                className={`flex-1 rounded-[14px] p-4 sm:p-5 md:p-7 text-center cursor-pointer transition-all duration-300
+                  border-2 touch-manipulation ${
                     card.variant === 'danger'
                       ? 'bg-danger/10 border-danger/30 hover:border-danger'
                       : 'bg-jade/[0.08] border-jade/25 hover:border-jade'

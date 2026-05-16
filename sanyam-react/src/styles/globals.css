@@ -144,3 +144,55 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE — mobile & tablet overrides
+   These rules live outside @layer so they beat
+   all Tailwind @layer utilities automatically.
+   ───────────────────────────────────────────── */
+
+/* Safe-area inset utilities (iOS notch / dynamic island) — apply additively with calc() */
+.pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+
+/* ── Mobile (<768px) ── */
+@media (max-width: 767px) {
+  /* Slide stage inner: allow scrolling when content overflows,
+     start items from top to avoid justify-center clipping on overflow */
+  .deck-slide {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+  }
+
+  /* Concept grid: cap at 2 columns regardless of JS-set value */
+  .concept-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Speaker notes: bottom sheet instead of full-screen overlay */
+  .notes-panel {
+    top: auto;
+    border-radius: 20px 20px 0 0;
+    max-height: 82vh;
+  }
+
+  /* Touch-friendly minimum size for interactive buttons */
+  .ix-btn {
+    min-height: 44px;
+    padding: 12px 22px;
+  }
+}
+
+/* ── Tablet (768–1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Slightly reduce notes padding on tablet */
+  .notes-panel {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+/* ── Prevent horizontal overflow on all viewports ── */
+html {
+  overflow-x: hidden;
+}

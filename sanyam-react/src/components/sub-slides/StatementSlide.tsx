@@ -42,9 +42,9 @@ const StatementSlide = ({ headline, subtext, audiencePrompt, imageSrc }: Props) 
     </svg>
 
     {imageSrc ? (
-      <div className="relative z-10 flex w-full h-full">
-        {/* Left: text content */}
-        <div className="flex flex-col items-start justify-center w-[55%] gap-5 pl-10 pr-6">
+      <div className="relative z-10 flex flex-col md:flex-row w-full h-full overflow-hidden">
+        {/* Text content — first in DOM = first on mobile (top), left on desktop */}
+        <div className="flex flex-col items-start justify-center w-full md:w-[55%] gap-3 md:gap-5 px-2 md:pl-10 md:pr-6 py-2 md:py-0">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
@@ -53,7 +53,7 @@ const StatementSlide = ({ headline, subtext, audiencePrompt, imageSrc }: Props) 
             <h1
               className="font-display font-bold text-left max-w-[640px] leading-tight"
               style={{
-                fontSize: 'clamp(22px, 3vw, 42px)',
+                fontSize: 'clamp(20px, 3vw, 42px)',
                 background: 'linear-gradient(180deg, #FFFFFF 0%, #F0EDE8 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -109,9 +109,9 @@ const StatementSlide = ({ headline, subtext, audiencePrompt, imageSrc }: Props) 
           )}
         </div>
 
-        {/* Right: image */}
+        {/* Image — right on desktop, below text on mobile */}
         <motion.div
-          className="flex items-center justify-center w-[45%] pr-6"
+          className="flex items-center justify-center w-full md:w-[45%] md:pr-6 max-h-[38vh] md:max-h-none"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.7, ease: 'easeOut' }}
@@ -119,7 +119,7 @@ const StatementSlide = ({ headline, subtext, audiencePrompt, imageSrc }: Props) 
           <img
             src={imageSrc}
             alt=""
-            className="max-h-[75%] max-w-full object-contain rounded-xl drop-shadow-2xl"
+            className="max-h-full max-w-full object-contain rounded-xl drop-shadow-2xl"
           />
         </motion.div>
       </div>
